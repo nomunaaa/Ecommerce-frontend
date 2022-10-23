@@ -5,12 +5,12 @@ import { Link, withRouter } from "react-router-dom"
 import classname from "classnames"
 
 //i18n
-import { withTranslation } from "react-i18next"
 
 import { connect } from "react-redux"
 
 const Navbar = props => {
   const [dashboard, setdashboard] = useState(false)
+  const views = localStorage.getItem("views")
 
   useEffect(() => {
     var matchingMenuItem = null
@@ -57,51 +57,92 @@ const Navbar = props => {
   return (
     <React.Fragment>
       <div className="topnav">
-        <div className="container-fluid">
-          <nav
-            className="navbar navbar-light navbar-expand-lg topnav-menu"
-            id="navigation"
-          >
-            <Collapse
-              isOpen={props.leftMenu}
-              className="navbar-collapse"
-              id="topnav-menu-content"
+        {views == "/buyerBoard" && (
+          <div className="container-fluid">
+            <nav
+              className="navbar navbar-light navbar-expand-lg topnav-menu"
+              id="navigation"
             >
-              <ul className="navbar-nav">
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle arrow-none"
-                    onClick={e => {
-                      e.preventDefault()
-                      setdashboard(!dashboard)
-                    }}
-                    to="/dashboard"
-                  >
-                    <i className="bx bx-home-circle me-2"></i>
-                    {props.t("Dashboard")} {props.menuOpen}
-                    <div className="arrow-down"></div>
-                  </Link>
-                  <div
-                    className={classname("dropdown-menu", { show: dashboard })}
-                  >
-                    <Link to="/#" className="dropdown-item">
-                      {props.t("Default")}
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle arrow-none"
+                      onClick={e => {
+                        e.preventDefault()
+                        setdashboard(!dashboard)
+                      }}
+                      to="/buyerBoard"
+                    >
+                      <i className="bx bx-home-circle me-2"></i>
+                      Dashboard {props.menuOpen}
+                      <div className="arrow-down"></div>
                     </Link>
-                    <Link to="/#" className="dropdown-item">
-                      {props.t("Saas")}
+                    <div
+                      className={classname("dropdown-menu", {
+                        show: dashboard,
+                      })}
+                    >
+                      <Link to="/buyerBoard" className="dropdown-item">
+                        Product List
+                      </Link>
+                      <Link to="/orderList" className="dropdown-item">
+                        My order list
+                      </Link>
+                    </div>
+                  </li>
+                </ul>
+              </Collapse>
+            </nav>
+          </div>
+        )}
+        {views == "/sellerBoard" && (
+          <div className="container-fluid">
+            <nav
+              className="navbar navbar-light navbar-expand-lg topnav-menu"
+              id="navigation"
+            >
+              <Collapse
+                isOpen={props.leftMenu}
+                className="navbar-collapse"
+                id="topnav-menu-content"
+              >
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle arrow-none"
+                      onClick={e => {
+                        e.preventDefault()
+                        setdashboard(!dashboard)
+                      }}
+                      to="/sellerBoard"
+                    >
+                      <i className="bx bx-home-circle me-2"></i>
+                      Dashboard {props.menuOpen}
+                      <div className="arrow-down"></div>
                     </Link>
-                    <Link to="/#" className="dropdown-item">
-                      {props.t("Crypto")}
-                    </Link>
-                    <Link to="/#" className="dropdown-item">
-                      {props.t("Blog")}
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            </Collapse>
-          </nav>
-        </div>
+                    <div
+                      className={classname("dropdown-menu", {
+                        show: dashboard,
+                      })}
+                    >
+                      <Link to="/sellerBoard" className="dropdown-item">
+                        Dashboard
+                      </Link>
+                      <Link to="/addProduct" className="dropdown-item">
+                        Add Product
+                      </Link>
+                    </div>
+                  </li>
+                </ul>
+              </Collapse>
+            </nav>
+          </div>
+        )}
       </div>
     </React.Fragment>
   )
@@ -111,7 +152,6 @@ Navbar.propTypes = {
   leftMenu: PropTypes.any,
   location: PropTypes.any,
   menuOpen: PropTypes.any,
-  t: PropTypes.any,
 }
 
 const mapStatetoProps = state => {
@@ -119,6 +159,4 @@ const mapStatetoProps = state => {
   return { leftMenu }
 }
 
-export default withRouter(
-  connect(mapStatetoProps, {})(withTranslation()(Navbar))
-)
+export default withRouter(connect(mapStatetoProps, {})(Navbar))

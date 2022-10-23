@@ -27,6 +27,11 @@ export async function post(url, data, config = {}) {
     .post(url, { ...data }, { ...config })
     .then(response => response.data)
 }
+export async function patch(url, data, config = {}) {
+  return axiosApi
+    .patch(url, { ...data }, { ...config })
+    .then(response => response.data)
+}
 
 export async function put(url, data, config = {}) {
   return axiosApi

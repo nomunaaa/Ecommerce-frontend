@@ -1,8 +1,7 @@
-import { isPropsEqual } from "@fullcalendar/core"
 import axios from "axios"
-import accessToken from "helpers/jwt-token-access/accessToken"
 import toastr from "toastr"
 import "toastr/build/toastr.css"
+import jwtDecode from "jwt-decode"
 const login = async function (email, password) {
   try {
     let response = await axios({
@@ -15,8 +14,12 @@ const login = async function (email, password) {
     })
     if (response.status == 200) {
       toastr.success("Successful Login")
-      localStorage.setItem(response.data.accessToken)
-      //   window.location.href = "/dashboard"
+      console.log(response, "resp")
+      localStorage.setItem("accessToken", response.data.accessToken)
+      const decoded = jwtDecode(response.data.accessToken)
+      localStorage.setItem("email", decoded.data.email)
+      window.location.href = decoded.data.views
+      localStorage.setItem("views", decoded.data.views)
     }
     return response
   } catch (err) {

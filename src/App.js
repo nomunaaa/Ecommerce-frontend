@@ -16,13 +16,7 @@ import NonAuthLayout from "./components/NonAuthLayout"
 
 // Import scss
 import "./assets/scss/theme.scss"
-
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper";
-
-import fakeBackend from "./helpers/AuthType/fakeBackend"
-
-fakeBackend()
+import "antd/dist/antd.min.css"
 
 const App = props => {
   function getLayout() {
@@ -51,7 +45,7 @@ const App = props => {
               layout={Layout}
               component={route.component}
               key={idx}
-              isAuthProtected={false}
+              isAuthProtected={true}
               exact
             />
           ))}

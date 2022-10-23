@@ -1,23 +1,23 @@
 import React from "react"
 import { Redirect } from "react-router-dom"
 
-// Profile
-import UserProfile from "../pages/Authentication/user-profile"
-
 // Authentication related pages
 import Login from "../pages/Authentication/Login"
-import Logout from "../pages/Authentication/Logout"
 import Register from "../pages/Authentication/Register"
-import Verify from "../pages/Authentication/Verify"
 
 // Dashboard
 import Dashboard from "../pages/Dashboard/index"
+import BuyerBoard from "../pages/EcommerceProducts/index"
+import ListOrders from "../pages/buyerBoard/index"
+import sellerBoard from "../pages/sellerBoard/index"
+import addProduct from "../pages/sellerBoard/addProduct"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
-
-  // //profile
-  { path: "/profile", component: UserProfile },
+  { path: "/buyerBoard", component: BuyerBoard },
+  { path: "/sellerBoard", component: sellerBoard },
+  { path: "/addProduct", component: addProduct },
+  { path: "/orderList", component: ListOrders },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
@@ -25,9 +25,7 @@ const authProtectedRoutes = [
 ]
 
 const publicRoutes = [
-  { path: "/logout", component: Logout },
   { path: "/login", component: Login },
-  { path: "/verify", component: Verify },
   { path: "/register", component: Register },
 ]
 

@@ -1,22 +1,14 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
-
-import { connect } from "react-redux"
 
 import { Link } from "react-router-dom"
 
-// Redux Store
-import { showRightSidebarAction, toggleLeftmenu } from "../../store/actions"
-
 // Import menuDropdown
-import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu"
+import ProfileMenu from "./ProfileMenu"
 
 import logo from "../../assets/images/logo.svg"
 import logoLight from "../../assets/images/logo-light.png"
 import logoLightSvg from "../../assets/images/logo-light.svg"
 import logoDark from "../../assets/images/logo-dark.png"
-
-import { withTranslation } from "react-i18next"
 
 const Header = props => {
   return (
@@ -66,20 +58,4 @@ const Header = props => {
   )
 }
 
-Header.propTypes = {
-  leftMenu: PropTypes.any,
-  showRightSidebar: PropTypes.any,
-  showRightSidebarAction: PropTypes.func,
-  t: PropTypes.any,
-  toggleLeftmenu: PropTypes.func,
-}
-
-const mapStatetoProps = state => {
-  const { layoutType, showRightSidebar, leftMenu } = state.Layout
-  return { layoutType, showRightSidebar, leftMenu }
-}
-
-export default connect(mapStatetoProps, {
-  showRightSidebarAction,
-  toggleLeftmenu,
-})(withTranslation()(Header))
+export default Header
